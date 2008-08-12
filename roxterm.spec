@@ -12,6 +12,7 @@ BuildRequires:	dbus-glib-devel
 BuildRequires:	libglade2-devel
 BuildRequires:	readline-devel
 BuildRequires:	vte-devel
+Requires:	dbus
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
