@@ -34,7 +34,6 @@ bármely más X környezetben.
 
 %build
 %configure \
-	--prefix=%{_prefix} \
 	--docdir=%{_docdir}/%{name}-%{version} \
 
 %{__make}
@@ -51,6 +50,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/%{name}*
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/%{name}
