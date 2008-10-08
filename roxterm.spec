@@ -56,10 +56,12 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 mv $RPM_BUILD_ROOT%{_docdir}/%{name} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
+%find_lang %{name}.lang
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/%{name}
@@ -67,5 +69,3 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_docdir}/%{name}-%{version}
 %{_docdir}/%{name}-%{version}/*
 %{_iconsdir}/hicolor/scalable/apps/roxterm.svg
-%{_datadir}/locale/en/LC_MESSAGES/*
-%{_datadir}/locale/en_GB/LC_MESSAGES/*
