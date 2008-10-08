@@ -1,6 +1,6 @@
-Summary:	ROXTerm is a terminal emulator
+Summary:	ROXTerm - a terminal emulator
 Summary(hu.UTF-8):	ROXTerm egy terminál emulátor
-Summary(pl.UTF-8):	Emulator terminala
+Summary(pl.UTF-8):	ROXTerm - emulator terminala
 Name:		roxterm
 Version:	1.13.0
 Release:	1
@@ -20,7 +20,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 ROXTerm is a terminal emulator intended to provide similar features to
 gnome-terminal, based on the same VTE library, but with a smaller
 footprint and quicker start-up time. It achieves this by not using the
-Gnome libraries and by using a separate applet to provide the
+GNOME libraries and by using a separate applet to provide the
 configuration GUI. It can be used as a ROX application, as the name
 implies, or in any other X environment.
 
@@ -33,19 +33,19 @@ bármely más X környezetben.
 
 %description -l pl.UTF-8
 ROXTerm jest emulatorem terminala, który w założeniach ma być podobny
-do gnome-terminal, bazować na tej samej bibliotece VTE, ale być
+do gnome-terminala, bazować na tej samej bibliotece VTE, ale być
 mniejszy i szybciej się uruchamiać. Cel ten został osiągnięty, dzięki
-temu, że ROXTerm nie używa bibliotek Gnome i uzywa osobnego applteu do
-konfiguracji GUI. ROXTerm - jak nazwa wskazuje - może być używany jako
-aplikacja ROX. Może być równiez używany z dowolnym innym środowiskiem
-X.
+temu, że ROXTerm nie używa bibliotek GNOME, a do graficznego
+interfejsu konfiguracyjnego używa osobnego apletu. ROXTerm - jak nazwa
+wskazuje - może być używany jako aplikacja ROX. Może być również
+używany z dowolnym innym środowiskiem X.
 
 %prep
 %setup -q
 
 %build
 %configure \
-	--docdir=%{_docdir}/%{name}-%{version} \
+	--docdir=%{_docdir}/%{name}-%{version}
 
 %{__make}
 
