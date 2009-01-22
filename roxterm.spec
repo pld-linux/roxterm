@@ -2,12 +2,12 @@ Summary:	ROXTerm - a terminal emulator
 Summary(hu.UTF-8):	ROXTerm egy terminál emulátor
 Summary(pl.UTF-8):	ROXTerm - emulator terminala
 Name:		roxterm
-Version:	1.13.0
+Version:	1.13.5
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/roxterm/%{name}-%{version}.tar.gz
-# Source0-md5:	5ec0918781d113181afccf454dbff236
+# Source0-md5:	979a686a3f38b0eb9eb1d2ec46ac97c0
 URL:		http://roxterm.sourceforge.net
 BuildRequires:	dbus-glib-devel
 BuildRequires:	libglade2-devel
