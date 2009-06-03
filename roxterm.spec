@@ -2,18 +2,26 @@ Summary:	ROXTerm - a terminal emulator
 Summary(hu.UTF-8):	ROXTerm egy terminál emulátor
 Summary(pl.UTF-8):	ROXTerm - emulator terminala
 Name:		roxterm
-Version:	1.13.5
+Version:	1.14.2
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/roxterm/%{name}-%{version}.tar.gz
-# Source0-md5:	979a686a3f38b0eb9eb1d2ec46ac97c0
-URL:		http://roxterm.sourceforge.net
-BuildRequires:	dbus-glib-devel
+# Source0-md5:	22b2696ecd7cd977a0c00e791a4451b8
+URL:		http://roxterm.sourceforge.net/
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	dbus-glib-devel >= 0.22
+BuildRequires:	gettext-devel
+BuildRequires:	gtk+2-devel >= 2:2.6.0
 BuildRequires:	libglade2-devel
-BuildRequires:	readline-devel
-BuildRequires:	vte-devel
+BuildRequires:	libtool
+BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.311
+BuildRequires:	vte-devel >= 0.11.11
+Requires(post,postun):	gtk+2
 Requires:	dbus
+Requires:	hicolor-icon-theme
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -44,6 +52,11 @@ używany z dowolnym innym środowiskiem X.
 %setup -q
 
 %build
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
 	--docdir=%{_docdir}/%{name}-%{version}
 
@@ -54,6 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
 mv $RPM_BUILD_ROOT%{_docdir}/%{name} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %find_lang %{name}
@@ -61,9 +75,16 @@ mv $RPM_BUILD_ROOT%{_docdir}/%{name} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+%update_icon_cache hicolor
+
+%postun
+%update_icon_cache hicolor
+
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/roxterm-config
+%attr(755,root,root) %{_bindir}/roxterm
 %{_datadir}/%{name}
 %{_desktopdir}/roxterm.desktop
 %dir %{_docdir}/%{name}-%{version}
