@@ -3,7 +3,7 @@ Summary(hu.UTF-8):	ROXTerm egy terminál emulátor
 Summary(pl.UTF-8):	ROXTerm - emulator terminala
 Name:		roxterm
 Version:	1.14.2
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/roxterm/%{name}-%{version}.tar.gz
