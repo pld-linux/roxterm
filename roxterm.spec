@@ -8,6 +8,7 @@ License:	GPL v2
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/roxterm/%{name}-%{version}.tar.gz
 # Source0-md5:	c4988ce844b702a77f3609c623107e53
+Patch0:		%{name}-pkgdocdir.patch
 URL:		http://roxterm.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -50,6 +51,7 @@ używany z dowolnym innym środowiskiem X.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -67,8 +69,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-mv $RPM_BUILD_ROOT%{_docdir}/%{name} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %find_lang %{name}
 
