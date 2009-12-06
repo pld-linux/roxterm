@@ -14,6 +14,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.22
 BuildRequires:	gettext-devel
+BuildRequires:	gnome-control-center-devel
 BuildRequires:	gtk+2-devel >= 2:2.6.0
 BuildRequires:	libglade2-devel
 BuildRequires:	libtool
