@@ -1,9 +1,12 @@
+#
+# Conditional build:
+%bcond_with	gnomecontrol	# register with GNOME as a default terminal application
 Summary:	ROXTerm - a terminal emulator
 Summary(hu.UTF-8):	ROXTerm egy terminál emulátor
 Summary(pl.UTF-8):	ROXTerm - emulator terminala
 Name:		roxterm
 Version:	1.16.3
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/roxterm/%{name}-%{version}.tar.gz
@@ -14,7 +17,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.22
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-control-center-devel
+%{?with_gnomecontrol:BuildRequires:	gnome-control-center-devel}
 BuildRequires:	gtk+2-devel >= 2:2.6.0
 BuildRequires:	libglade2-devel
 BuildRequires:	libtool
@@ -61,6 +64,7 @@ używany z dowolnym innym środowiskiem X.
 %{__autoheader}
 %{__automake}
 %configure \
+	%{!?with_gnomecontrol:--disable-gnome-default-applications} \
 	--docdir=%{_docdir}/%{name}-%{version}
 
 %{__make}
@@ -87,7 +91,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/roxterm-config
 %attr(755,root,root) %{_bindir}/roxterm
 %{_datadir}/%{name}
-%{_datadir}/gnome-control-center/default-apps/roxterm.xml
+%{?with_gnomecontrol:%{_datadir}/gnome-control-center/default-apps/roxterm.xml}
 %{_desktopdir}/roxterm.desktop
 %dir %{_docdir}/%{name}-%{version}
 %{_docdir}/%{name}-%{version}/*
