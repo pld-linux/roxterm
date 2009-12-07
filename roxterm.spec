@@ -24,6 +24,7 @@ BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	vte-devel >= 0.11.11
+BuildRequires:	xmlto
 Requires(post,postun):	gtk+2
 Requires:	dbus
 Requires:	hicolor-icon-theme
