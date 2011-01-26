@@ -5,29 +5,32 @@ Summary:	ROXTerm - a terminal emulator
 Summary(hu.UTF-8):	ROXTerm egy terminál emulátor
 Summary(pl.UTF-8):	ROXTerm - emulator terminala
 Name:		roxterm
-Version:	1.19.1
+Version:	1.20.6
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/roxterm/%{name}-%{version}.tar.gz
-# Source0-md5:	5f4cc4b9e1e95b29f4dcf09bb4d0dfb9
-Patch0:		%{name}-pkgdocdir.patch
+# Source0-md5:	72c792c2e66bc9be13b8969a7badeccc
 URL:		http://roxterm.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	dbus-devel
 BuildRequires:	dbus-glib-devel >= 0.22
-BuildRequires:	gettext-devel
+BuildRequires:	diffutils
+BuildRequires:	gettext-devel >= 0.17
+BuildRequires:	glib2-devel >= 1:2.6.0
 %{?with_gnomecontrol:BuildRequires:	gnome-control-center-devel}
 BuildRequires:	gtk+2-devel >= 2:2.6.0
 BuildRequires:	libglade2-devel
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.311
+BuildRequires:	sed
 BuildRequires:	vte-devel >= 0.11.11
+BuildRequires:	xorg-lib-libSM-devel
 BuildRequires:	xmlto
-Requires(post,postun):	gtk+2
+Requires(post,postun):	/usr/bin/gtk-update-icon-cache
 Requires:	dbus
-Requires:	hicolor-icon-theme
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -56,7 +59,6 @@ używany z dowolnym innym środowiskiem X.
 
 %prep
 %setup -q
-# %patch0 -p1
 
 %build
 %{__libtoolize}
@@ -65,8 +67,8 @@ używany z dowolnym innym środowiskiem X.
 %{__autoheader}
 %{__automake}
 %configure \
-	%{!?with_gnomecontrol:--disable-gnome-default-applications} \
-	--docdir=%{_docdir}/%{name}-%{version}
+	--enable-sm \
+	--with%{!?with_gnomecontrol:out}-gnome-default-applications
 
 %{__make}
 
@@ -75,6 +77,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/doc
 
 %find_lang %{name}
 
@@ -89,13 +93,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
+%doc AUTHORS ChangeLog NEWS README Help/en Help/lib
+%lang(es) %doc Help/es
 %attr(755,root,root) %{_bindir}/roxterm-config
 %attr(755,root,root) %{_bindir}/roxterm
 %{_datadir}/%{name}
 %{?with_gnomecontrol:%{_datadir}/gnome-control-center/default-apps/roxterm.xml}
 %{_desktopdir}/roxterm.desktop
-%dir %{_docdir}/%{name}-%{version}
-%{_docdir}/%{name}-%{version}/*
 %{_iconsdir}/hicolor/scalable/apps/roxterm.svg
 %{_mandir}/man1/roxterm-config.1*
 %{_mandir}/man1/roxterm.1*
+%lang(es) %{_mandir}/es/man1/roxterm-config.1*
+%lang(es) %{_mandir}/es/man1/roxterm.1*
