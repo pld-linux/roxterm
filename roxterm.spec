@@ -6,7 +6,7 @@ Summary(hu.UTF-8):	ROXTerm egy terminál emulátor
 Summary(pl.UTF-8):	ROXTerm - emulator terminala
 Name:		roxterm
 Version:	1.20.6
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/roxterm/%{name}-%{version}.tar.gz
@@ -16,7 +16,6 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	dbus-devel
 BuildRequires:	dbus-glib-devel >= 0.22
-BuildRequires:	diffutils
 BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	glib2-devel >= 1:2.6.0
 %{?with_gnomecontrol:BuildRequires:	gnome-control-center-devel}
@@ -25,11 +24,11 @@ BuildRequires:	libglade2-devel
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.311
-BuildRequires:	sed
 BuildRequires:	vte-devel >= 0.11.11
-BuildRequires:	xorg-lib-libSM-devel
 BuildRequires:	xmlto
-Requires(post,postun):	/usr/bin/gtk-update-icon-cache
+BuildRequires:	xorg-lib-libSM-devel
+Requires(post,postun):	gtk-update-icon-cache
+Requires(post,postun):	hicolor-icon-theme
 Requires:	dbus
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
