@@ -5,26 +5,27 @@ Summary:	ROXTerm - a terminal emulator
 Summary(hu.UTF-8):	ROXTerm egy terminál emulátor
 Summary(pl.UTF-8):	ROXTerm - emulator terminala
 Name:		roxterm
-Version:	1.22.2
-Release:	1
+Version:	2.0.1
+Release:	0.1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/roxterm/%{name}-%{version}.tar.gz
-# Source0-md5:	9ff2878ea64bc6c474334b2446ae18a6
+# Source0-md5:	114d571d42b2ddd7a777b26339a07573
 URL:		http://roxterm.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	dbus-devel
 BuildRequires:	dbus-glib-devel >= 0.22
 BuildRequires:	gettext-devel >= 0.17
-BuildRequires:	glib2-devel >= 1:2.6.0
+BuildRequires:	glib2-devel >= 1:2.16.0
 %{?with_gnomecontrol:BuildRequires:	gnome-control-center-devel}
-BuildRequires:	gtk+2-devel >= 2:2.6.0
+BuildRequires:	gtk+3-devel
 BuildRequires:	libglade2-devel
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.311
-BuildRequires:	vte-devel >= 0.11.11
+BuildRequires:	sed >= 4.0
+BuildRequires:	vte-devel >= 0.27.0
 BuildRequires:	xmlto
 BuildRequires:	xorg-lib-libSM-devel
 Requires(post,postun):	gtk-update-icon-cache
@@ -67,6 +68,7 @@ używany z dowolnym innym środowiskiem X.
 %{__autoheader}
 %{__automake}
 %configure \
+	--enable-gtk3 \
 	--enable-sm \
 	--with%{!?with_gnomecontrol:out}-gnome-default-applications
 
@@ -80,8 +82,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/doc
 
-%find_lang %{name}
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -91,10 +91,9 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 %update_icon_cache hicolor
 
-%files -f %{name}.lang
+%files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README Help/en Help/lib
-%lang(es) %doc Help/es
 %attr(755,root,root) %{_bindir}/roxterm-config
 %attr(755,root,root) %{_bindir}/roxterm
 %{_datadir}/%{name}
@@ -103,5 +102,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/scalable/apps/roxterm.svg
 %{_mandir}/man1/roxterm-config.1*
 %{_mandir}/man1/roxterm.1*
-%lang(es) %{_mandir}/es/man1/roxterm-config.1*
-%lang(es) %{_mandir}/es/man1/roxterm.1*
