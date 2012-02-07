@@ -16,6 +16,7 @@ Source0:	http://downloads.sourceforge.net/roxterm/%{name}-%{version}.tar.bz2
 # Source0-md5:	7c3bb1471f814a8bfdfcf169ad18e425
 Patch0:		%{name}-flags.patch
 URL:		http://roxterm.sourceforge.net/
+BuildRequires:	ImageMagick
 BuildRequires:	dbus-devel
 BuildRequires:	dbus-glib-devel >= 0.22
 BuildRequires:	gettext-devel >= 0.17
