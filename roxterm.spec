@@ -68,6 +68,7 @@ używany z dowolnym innym środowiskiem X.
 
 %build
 %{__python} mscript.py configure \
+	--prefix="%{_prefix}" \
 	--enable-gtk3 \
 	--enable-sm \
 	--with%{!?with_gnomecontrol:out}-gnome-default-applications
@@ -80,7 +81,6 @@ używany z dowolnym innym środowiskiem X.
 rm -rf $RPM_BUILD_ROOT
 
 %{__python} mscript.py install \
-	PREFIX="%{_prefix}" \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/doc
