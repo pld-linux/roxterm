@@ -1,19 +1,21 @@
 #
+# TODO: why fr and gl locales are not packaged by find_lang macro?
+#
 # Conditional build:
 %bcond_with	gnomecontrol	# register with GNOME as a default terminal application
+#
 Summary:	ROXTerm - a terminal emulator
 Summary(hu.UTF-8):	ROXTerm egy terminál emulátor
 Summary(pl.UTF-8):	ROXTerm - emulator terminala
 Name:		roxterm
-Version:	2.2.2
+Version:	2.4.2
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://downloads.sourceforge.net/roxterm/%{name}-%{version}.tar.gz
-# Source0-md5:	ad3c2e92c588ab312e8b199a9082efcd
+Source0:	http://downloads.sourceforge.net/roxterm/%{name}-%{version}.tar.bz2
+# Source0-md5:	7c3bb1471f814a8bfdfcf169ad18e425
+Patch0:		%{name}-flags.patch
 URL:		http://roxterm.sourceforge.net/
-BuildRequires:	autoconf
-BuildRequires:	automake
 BuildRequires:	dbus-devel
 BuildRequires:	dbus-glib-devel >= 0.22
 BuildRequires:	gettext-devel >= 0.17
@@ -23,6 +25,8 @@ BuildRequires:	gtk+3-devel
 BuildRequires:	libglade2-devel
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
+BuildRequires:	po4a
+BuildRequires:	python-lockfile
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sed >= 4.0
 BuildRequires:	vte-devel >= 0.27.0
@@ -59,28 +63,28 @@ używany z dowolnym innym środowiskiem X.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-%{__gettextize}
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
+%{__python} mscript.py configure \
 	--enable-gtk3 \
 	--enable-sm \
 	--with%{!?with_gnomecontrol:out}-gnome-default-applications
 
-%{__make}
+%{__python} mscript.py build \
+	CC="%{__cc}" \
+	OPTFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__python} mscript.py install \
+	PREFIX="%{_prefix}" \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/doc
+
+%find_lang %{name} --all-name
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -91,9 +95,9 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 %update_icon_cache hicolor
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README Help/en Help/lib
+%doc AUTHORS ChangeLog NEWS README Help/en Help/es Help/lib
 %attr(755,root,root) %{_bindir}/roxterm-config
 %attr(755,root,root) %{_bindir}/roxterm
 %{_datadir}/%{name}
@@ -102,3 +106,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/scalable/apps/roxterm.svg
 %{_mandir}/man1/roxterm-config.1*
 %{_mandir}/man1/roxterm.1*
+%lang(es) %{_mandir}/es/man1/roxterm-config.1*
+%lang(es) %{_mandir}/es/man1/roxterm.1*
