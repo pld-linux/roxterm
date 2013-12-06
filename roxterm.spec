@@ -1,6 +1,3 @@
-#
-# TODO: why fr and gl locales are not packaged by find_lang macro?
-#
 # Conditional build:
 %bcond_with	gnomecontrol	# register with GNOME as a default terminal application
 #
@@ -8,13 +5,12 @@ Summary:	ROXTerm - a terminal emulator
 Summary(hu.UTF-8):	ROXTerm egy terminál emulátor
 Summary(pl.UTF-8):	ROXTerm - emulator terminala
 Name:		roxterm
-Version:	2.4.2
+Version:	2.7.2
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/roxterm/%{name}-%{version}.tar.bz2
-# Source0-md5:	7c3bb1471f814a8bfdfcf169ad18e425
-Patch0:		%{name}-flags.patch
+# Source0-md5:	8ef80f9a5e0aea659b1f9cd6de9869b4
 URL:		http://roxterm.sourceforge.net/
 BuildRequires:	ImageMagick-coder-png
 BuildRequires:	dbus-devel
@@ -64,7 +60,6 @@ używany z dowolnym innym środowiskiem X.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__python} mscript.py configure \
@@ -75,7 +70,7 @@ używany z dowolnym innym środowiskiem X.
 
 %{__python} mscript.py build \
 	CC="%{__cc}" \
-	OPTFLAGS="%{rpmcflags}"
+	CPPFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -109,3 +104,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/roxterm.1*
 %lang(es) %{_mandir}/es/man1/roxterm-config.1*
 %lang(es) %{_mandir}/es/man1/roxterm.1*
+%lang(fr) %{_mandir}/fr/man1/roxterm-config.1*
+%lang(fr) %{_mandir}/fr/man1/roxterm.1*
+%lang(pt) %{_mandir}/pt/man1/roxterm-config.1*
+%lang(pt) %{_mandir}/pt/man1/roxterm.1*
+%lang(pt_BR) %{_mandir}/pt_BR/man1/roxterm-config.1*
+%lang(pt_BR) %{_mandir}/pt_BR/man1/roxterm.1*
+%lang(ru) %{_mandir}/ru/man1/roxterm-config.1*
+%lang(ru) %{_mandir}/ru/man1/roxterm.1*
+%lang(uk) %{_mandir}/uk/man1/roxterm-config.1*
+%lang(uk) %{_mandir}/uk/man1/roxterm.1*
