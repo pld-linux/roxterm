@@ -26,7 +26,8 @@ BuildRequires:	po4a
 BuildRequires:	python-lockfile
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sed >= 4.0
-BuildRequires:	vte-devel >= 0.27.0
+BuildRequires:	vte2.90-devel
+#BuildRequires:	vte-devel >= 0.27.0
 BuildRequires:	xmlto
 BuildRequires:	xorg-lib-libSM-devel
 Requires(post,postun):	gtk-update-icon-cache
@@ -98,6 +99,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/roxterm
 %{_datadir}/%{name}
 %{?with_gnomecontrol:%{_datadir}/gnome-control-center/default-apps/roxterm.xml}
+%{_datadir}/appdata/roxterm.appdata.xml
 %{_desktopdir}/roxterm.desktop
 %{_iconsdir}/hicolor/scalable/apps/roxterm.svg
 %{_mandir}/man1/roxterm-config.1*
