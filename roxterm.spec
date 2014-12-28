@@ -15,7 +15,7 @@ URL:		http://roxterm.sourceforge.net/
 BuildRequires:	ImageMagick-coder-png
 BuildRequires:	dbus-devel
 BuildRequires:	dbus-glib-devel >= 0.22
-BuildRequires:	gettext-devel >= 0.17
+BuildRequires:	gettext-tools >= 0.17
 BuildRequires:	glib2-devel >= 1:2.16.0
 %{?with_gnomecontrol:BuildRequires:	gnome-control-center-devel}
 BuildRequires:	gtk+3-devel
